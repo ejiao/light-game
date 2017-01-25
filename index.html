@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	</head> 
+	<!-- CSS --> 
+	<style>
+		body { 
+			background-color: #333333; 
+			color: #dddddd;
+			font-family: Helvetica, sans-serif; 
+			font-size: 2em; 
+			max-width: 800px; 
+			margin: auto; 
+		}
+		.text { 
+			max-width: 800px; 
+		}
+		.button { 
+			margin: 20px;
+			height: 100px; 
+			width: 100px;
+			float: left; 
+		}
+		.on {
+			background-color: #6f6fff;
+		}
+		.off {
+			background-color: #000000; 
+		}
+	</style>
+
+	<body> 
+		
+		<div id="text"> 
+			<p> You are trapped in a room and for some reason the only way to escape is to turn out all the lights. 
+				The only catch is that this room was horribly wired and each light's switch is connected to <i> two different lights </i>! Can you flip the switches in the right order and escape? </p> 
+			<p>
+				<b> Click a light to flip its switch</b> 
+			</p>
+		</div> 
+			
+		<div onclick = "fliptwo('button1', 'button2')" class = "button on" id="button1"> </div> 
+		<div onclick = "fliptwo('button2', 'button1')" class = "button on" id="button2"> </div> 
+		<div onclick = "fliptwo('button3', 'button2')" class = "button on" id="button3"> </div> 
+		<div onclick = "fliptwo('button4', 'button2')" class = "button on" id="button4"> </div> 
+	</body> 
+
+	<!-- JS --> 
+	<script>
+		/* displays victory message if all the lights are off 
+		 */ 
+		function checkwin() {
+			if(document.getElementById('button1').classList.contains("off") &&
+			   document.getElementById('button2').classList.contains("off") &&
+			   document.getElementById('button3').classList.contains("off") &&
+			   document.getElementById('button4').classList.contains("off")) {
+				document.getElementById('text').innerHTML = 
+					"<h3> congrats you won! </h3>" +
+					"<p> You managed to escape the room with the right combination of lights! Good job! Refresh this page to play again. </p>"
+			}
+		}
+
+		/* flips a single button off or on depending on its current state  
+		 */
+		function flip(buttonid) {
+			var button = document.getElementById(buttonid)
+			if (button.classList.contains("on")) {
+				document.getElementById(buttonid).classList.remove("on"); 
+				document.getElementById(buttonid).classList.add("off"); 
+			} else {
+				document.getElementById(buttonid).classList.remove("off"); 
+				document.getElementById(buttonid).classList.add("on");
+			}
+		}
+		/* flips two buttons on or off depending on their current states 
+		 * and checks if the player has won
+		 */ 
+		function fliptwo(a, b) {
+			flip(a); 
+			flip(b); 
+			setTimeout(function(){ 
+			    checkwin();
+			}, 50);	
+		}
+	</script> 
+</html> 
